@@ -1,0 +1,6 @@
+@PreqinAPI_HostAddress = http://localhost:5022
+
+GET {{PreqinAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
