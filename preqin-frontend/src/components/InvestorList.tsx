@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './InvestorList.css';
 
-// Define the interface for the Investor data
 interface Investor {
     id: number;
     name: string;
@@ -14,9 +13,7 @@ interface Investor {
 
 const InvestorList: React.FC = () => {
     const [investors, setInvestors] = useState<Investor[]>([]);
-    const navigate = useNavigate(); // Hook to navigate to another route
-
-    // Fetch investors data from the API when the component loads
+    const navigate = useNavigate(); 
     useEffect(() => {
         axios.get('/api/investor')
             .then(response => {
@@ -27,7 +24,6 @@ const InvestorList: React.FC = () => {
             });
     }, []);
 
-    // Function to handle click on an investor and navigate to their commitments
     const handleInvestorClick = (investorId: number) => {
         navigate(`/commitments/${investorId}`);
     };

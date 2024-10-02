@@ -7,10 +7,7 @@ const App: React.FC = () => {
     return (
         <Router>
             <Routes>
-                {/* Route for showing the investor list */}
                 <Route path="/" element={<InvestorList />} />
-
-                {/* Route for showing commitments based on investor id */}
                 <Route path="/commitments/:investorId" element={<Commitments />} />
             </Routes>
         </Router>

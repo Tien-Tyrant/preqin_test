@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Commitments.css';
 
-// Define the interface for the Commitment data
 interface Commitment {
     id: number;
     assetClass: string;
