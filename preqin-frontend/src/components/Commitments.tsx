@@ -45,19 +45,24 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
             });
     }, [investorId]);
 
-    const filterByAssetClass = (assetClass: string | null) => {
-        let url = `/api/commitment/${investorId}`;
-        if (assetClass) {
-            url += `?assetClass=${encodeURIComponent(assetClass)}`;
+    // Format total as B or M depending on the value
+    const formatAmount = (amount: number): string => {
+        if (amount >= 1000000000) {
+            return `${(amount / 1000000000).toFixed(1)}B`;
+        } else {
+            return `${(amount / 1000000).toFixed(0)}M`; // Show in millions if less than 1B
         }
-        axios.get(url)
-            .then(response => {
-                setFilteredCommitments(response.data); // Update the filtered commitments
-                setActiveFilter(assetClass);
-            })
-            .catch(error => {
-                console.error("There was an error fetching the commitments!", error);
-            });
+    };
+
+    // Filter commitments by asset class
+    const filterByAssetClass = (assetClass: string | null) => {
+        if (assetClass) {
+            setFilteredCommitments(commitments.filter(c => c.assetClass === assetClass));
+            setActiveFilter(assetClass);
+        } else {
+            setFilteredCommitments(commitments); // Show all if no filter is applied
+            setActiveFilter(null);
+        }
     };
 
     return (
@@ -65,7 +70,7 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
             <h1>Commitments</h1>
             <div className="filter-buttons">
                 <button className={activeFilter === null ? "active" : ""} onClick={() => filterByAssetClass(null)}>
-                    All £{(totalCommitments / 1000000000).toFixed(1)}B
+                    All £{formatAmount(totalCommitments)}
                 </button>
                 {Object.keys(totalByAssetClass).map(assetClass => (
                     <button
@@ -73,7 +78,7 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
                         className={activeFilter === assetClass ? "active" : ""}
                         onClick={() => filterByAssetClass(assetClass)}
                     >
-                        {assetClass} £{(totalByAssetClass[assetClass] / 1000000000).toFixed(1)}B
+                        {assetClass} £{formatAmount(totalByAssetClass[assetClass])}
                     </button>
                 ))}
             </div>
@@ -92,7 +97,7 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
                             <td>{commitment.id}</td>
                             <td>{commitment.assetClass}</td>
                             <td>{commitment.currency}</td>
-                            <td>{(commitment.amount / 1000000).toFixed(1)}M</td>
+                            <td>{formatAmount(commitment.amount)}</td>
                         </tr>
                     ))}
                 </tbody>
