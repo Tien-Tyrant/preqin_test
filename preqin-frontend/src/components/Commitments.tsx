@@ -23,7 +23,7 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
 
     // Fetch commitments data for the selected investor when the component loads
     useEffect(() => {
-        axios.get(`/api/investor/${investorId}/commitments`)
+        axios.get(`/api/commitment/${investorId}`)
             .then(response => {
                 const commitmentsData = response.data;
 
@@ -45,15 +45,19 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
             });
     }, [investorId]);
 
-    // Filter commitments by asset class
     const filterByAssetClass = (assetClass: string | null) => {
+        let url = `/api/commitment/${investorId}`;
         if (assetClass) {
-            setFilteredCommitments(commitments.filter(c => c.assetClass === assetClass));
-            setActiveFilter(assetClass);
-        } else {
-            setFilteredCommitments(commitments); // Show all if no filter is applied
-            setActiveFilter(null);
+            url += `?assetClass=${encodeURIComponent(assetClass)}`;
         }
+        axios.get(url)
+            .then(response => {
+                setFilteredCommitments(response.data); // Update the filtered commitments
+                setActiveFilter(assetClass);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the commitments!", error);
+            });
     };
 
     return (
