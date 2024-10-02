@@ -65,7 +65,7 @@ const Commitments: React.FC = () => {
 
     return (
         <div className="commitments-container">
-            <h1>Commitments for Investor {investorId}</h1>
+            <h1>Commitments</h1>
 
             {/* Filter Buttons */}
             <div className="filter-buttons">
