@@ -10,6 +10,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
     });
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 builder.Services.AddCors(options =>
 {

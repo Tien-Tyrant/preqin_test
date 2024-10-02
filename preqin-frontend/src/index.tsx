@@ -4,8 +4,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import API_BASE_URL from './api'
 
-axios.defaults.baseURL = 'http://localhost:5022';
+axios.defaults.baseURL = API_BASE_URL;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
