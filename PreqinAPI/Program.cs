@@ -6,7 +6,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers()
-.AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+.AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 // Configure SQLite for the application
 builder.Services.AddDbContext<DataContext>(options =>
@@ -15,8 +30,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 // Build the app
 var app = builder.Build();
 
-// Middleware configuration
-
+app.UseCors("AllowReactApp");
 app.MapControllers();
-
 app.Run();

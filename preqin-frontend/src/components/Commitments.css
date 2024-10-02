@@ -1,0 +1,63 @@
+.commitments-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-buttons button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.filter-buttons button.active {
+    background-color: #6c63ff;
+    color: white;
+    border-color: #6c63ff;
+}
+
+.commitments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.commitments-table thead {
+    background-color: #f4f4f4;
+}
+
+.commitments-table th, .commitments-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.commitments-table th {
+    font-weight: bold;
+}
+
+.commitments-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.commitments-table td {
+    text-align: left;
+}
+
+.commitments-table td.amount {
+    text-align: right;
+}

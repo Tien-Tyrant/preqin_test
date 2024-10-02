@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PreqinAPI.Data;
+using PreqinAPI.DTOs;
 using PreqinAPI.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PreqinAPI.Controllers
 {
@@ -16,25 +20,25 @@ namespace PreqinAPI.Controllers
             _context = context;
         }
 
+        // Get investors and map to DTO
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Investor>>> GetInvestors()
+        public async Task<ActionResult<IEnumerable<InvestorDto>>> GetInvestors()
         {
-            return await _context.Investors.Include(i => i.Commitments).ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Investor>> GetInvestor(int id)
-        {
-            var investor = await _context.Investors
+            var investors = await _context.Investors
                 .Include(i => i.Commitments)
-                .FirstOrDefaultAsync(i => i.Id == id);
+                .ToListAsync(); // Fetch data from the database first
 
-            if (investor == null)
+            // Now perform the sum on the client side
+            var investorDtos = investors.Select(i => new InvestorDto
             {
-                return NotFound();
-            }
+                Id = i.Id,
+                Name = i.Name,
+                Type = i.Type,
+                DateAdded = i.DateAdded.ToString("MMMM d, yyyy"),
+                TotalCommitments = i.Commitments.Sum(c => c.Amount)
+            }).ToList();
 
-            return investor;
+            return Ok(investorDtos);
         }
     }
 }

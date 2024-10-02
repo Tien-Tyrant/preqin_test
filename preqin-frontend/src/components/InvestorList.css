@@ -1,0 +1,40 @@
+.investor-list-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.investor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.investor-table thead {
+    background-color: #f4f4f4;
+}
+
+.investor-table th, .investor-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.investor-table th {
+    font-weight: bold;
+}
+
+.investor-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.commitment-amount {
+    color: #6c63ff; /* Blue-purple color for commitments */
+    font-weight: bold;
+}
