@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './Commitments.css'; // Import the CSS for styling
+import { useParams } from 'react-router-dom';
+import './Commitments.css';
 
 // Define the interface for the Commitment data
 interface Commitment {
@@ -10,11 +11,8 @@ interface Commitment {
     currency: string;
 }
 
-interface CommitmentsProps {
-    investorId: number;
-}
-
-const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
+const Commitments: React.FC = () => {
+    const { investorId } = useParams<{ investorId: string }>(); // Get investorId from the route
     const [commitments, setCommitments] = useState<Commitment[]>([]);
     const [filteredCommitments, setFilteredCommitments] = useState<Commitment[]>([]);
     const [totalByAssetClass, setTotalByAssetClass] = useState<Record<string, number>>({});
@@ -67,7 +65,9 @@ const Commitments: React.FC<CommitmentsProps> = ({ investorId }) => {
 
     return (
         <div className="commitments-container">
-            <h1>Commitments</h1>
+            <h1>Commitments for Investor {investorId}</h1>
+
+            {/* Filter Buttons */}
             <div className="filter-buttons">
                 <button className={activeFilter === null ? "active" : ""} onClick={() => filterByAssetClass(null)}>
                     All £{formatAmount(totalCommitments)}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './InvestorList.css';
 
 // Define the interface for the Investor data
@@ -11,12 +12,9 @@ interface Investor {
     totalCommitments: number;
 }
 
-interface InvestorListProps {
-    onInvestorSelect: (investorId: number) => void;
-}
-
-const InvestorList: React.FC<InvestorListProps> = ({ onInvestorSelect }) => {
+const InvestorList: React.FC = () => {
     const [investors, setInvestors] = useState<Investor[]>([]);
+    const navigate = useNavigate(); // Hook to navigate to another route
 
     // Fetch investors data from the API when the component loads
     useEffect(() => {
@@ -28,6 +26,11 @@ const InvestorList: React.FC<InvestorListProps> = ({ onInvestorSelect }) => {
                 console.error("There was an error fetching the investors!", error);
             });
     }, []);
+
+    // Function to handle click on an investor and navigate to their commitments
+    const handleInvestorClick = (investorId: number) => {
+        navigate(`/commitments/${investorId}`);
+    };
 
     return (
         <div className="investor-list-container">
@@ -44,7 +47,7 @@ const InvestorList: React.FC<InvestorListProps> = ({ onInvestorSelect }) => {
                 </thead>
                 <tbody>
                     {investors.map(investor => (
-                        <tr key={investor.id} onClick={() => onInvestorSelect(investor.id)}>
+                        <tr key={investor.id} onClick={() => handleInvestorClick(investor.id)}>
                             <td>{investor.id}</td>
                             <td>{investor.name}</td>
                             <td>{investor.type}</td>
