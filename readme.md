@@ -36,7 +36,6 @@ Follow these steps to run the project locally using Docker and Docker Compose:
     In the root directory where the docker-compose.yml file is located, run the following command to build and start both the backend and frontend services:
 
     ```bash
-    Copy code
     docker-compose up --build
     ```
 
