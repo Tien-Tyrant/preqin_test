@@ -6,7 +6,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import API_BASE_URL from './api'
 
-axios.defaults.baseURL = API_BASE_URL;
+// axios.defaults.baseURL = API_BASE_URL;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
