@@ -2,6 +2,21 @@
 
 This project contains both a backend (ASP.NET Core API) and a frontend (React) application that interact to list investors and filter them by asset class.
 
+## Demo Website
+
+The demo website can be accessed at the following URL:
+
+**http://ec2-18-132-49-97.eu-west-2.compute.amazonaws.com/**
+
+### Important Notes:
+- The demo website currently supports **HTTP only**, not HTTPS. Please ensure you are accessing the site using `http://` and not `https://`.
+- The frontend and backend are both hosted on the same EC2 instance.
+
+## Features
+
+- **Frontend**: A React TypeScript app for managing and displaying investor data.
+- **Backend**: An ASP.NET Core API providing data to the frontend.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following tools installed:
