@@ -25,6 +25,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.WebHost.UseWebRoot("http://0.0.0.0:5000");
+
 var app = builder.Build();
 
 app.UseCors("AllowReactApp");
